@@ -8,7 +8,7 @@ let value = 1;
 let bubble_button;
 let color_button;
 let sec;
-let time_allowed = 5;
+let time_allowed = 20;
 let total_score = 0;
 
 class Bubble {
