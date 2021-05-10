@@ -1,14 +1,14 @@
-let ba = [];
-let sz = 40;
-let sz2 = 90;
-let numB = 10;
-let intensity_slider;
+let ba = []; //this is the array which with small bubbles are created in
+let sz = 40;//this is the size of the regulaly spawned bubbles 
+let sz2 = 90; //size of the cyan bubbles 
+let numB = 10; //amout of bubble put in the aray 
+let intensity_slider;//silder which controles the speed
 let value_text;
 let value = 1;
-let bubble_button;
-let color_button;
-let sec;
-let time_allowed = 20;
+let bubble_button;//makes new cyan bubbles
+let color_button;//button that changes the cyan bubbles to red
+let sec;//seconds 
+let time_allowed = 8;//the total time where you can score points 
 let total_score = 0;
 
 class Bubble {
@@ -45,25 +45,34 @@ function setup() {
   createCanvas(600, 400);
   intensity_slider = createSlider(1, 5, 1, 1);
   value = intensity_slider.value();
-  value_text = createP('the intensity is: ' + value);
-  let p = createP('Try to click on all of the buttons to pop them once you do that you WIN!');
-  bubble_button = createButton('New Bubble');
+  value_text = createP("the intensity is: " + value);
+  let p = createP(
+    "Try to click on as many bubbles as you can before time runs out. If you pop all of the small ones click the New Bubble button to create more. Your score is Number of bubbles x the value of the slider."
+  );
+  bubble_button = createButton("New Bubble");
   bubble_button.mousePressed(createbubble);
-  // delete_bubble = createButton('get rid of the big bubbles');
-  // delete_bubble.mousePressed(deletebubble);
-  color_button = createButton('change big bubbles color');
+  color_button = createButton("change big bubbles color");
   color_button.mousePressed(change_clr);
 
   for (let i = 0; i < numB; i++) {
-    ba.push(new Bubble(random(sz / 2, width - sz / 2), random(sz / 2, height - sz / 2), randColor(), sz, random(value), random(value)));
+    ba.push(
+      new Bubble(
+        random(sz / 2, width - sz / 2),
+        random(sz / 2, height - sz / 2),
+        randColor(),
+        sz,
+        random(value),
+        random(value)
+      )
+    );
   }
 }
 
 function draw() {
   background(220);
-  sec = millis() / 1000 % 60;
+  sec = (millis() / 1000) % 60;
   value = intensity_slider.value();
-  value_text.html('the intensity is: ' + nf(value, 1, 2));
+  value_text.html("the intensity is: " + nf(value, 1, 2));
 
   for (let i = 0; i < ba.length; i++) {
     ba[i].move();
@@ -73,7 +82,7 @@ function draw() {
     fill(0);
     textSize(32);
     textAlign(CENTER);
-    text('you scored ' + total_score, width / 2, height / 2);
+    text("you scored " + total_score, width / 2, height / 2);
     noLoop();
   }
 }
@@ -83,7 +92,16 @@ function randColor() {
 }
 
 function createbubble() {
-  ba.push(new Bubble(width / 2, height / 2, color('cyan'), sz2, random(value), random(value)));
+  ba.push(
+    new Bubble(
+      width / 2,
+      height / 2,
+      color("cyan"),
+      sz2,
+      random(value),
+      random(value)
+    )
+  );
 }
 
 function mousePressed() {
@@ -99,7 +117,7 @@ function mousePressed() {
 function change_clr() {
   for (let i = 0; i < ba.length; i++) {
     if (ba[i].s > sz) {
-      ba[i].c = color('red');
+      ba[i].c = color("red");
     }
   }
 }
